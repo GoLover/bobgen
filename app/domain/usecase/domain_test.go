@@ -24,6 +24,7 @@ func TestDomainUsecase_CreateDomain(t *testing.T) {
 	}{
 		{name: "create domain", fields: fields{dr: repository.NewDomainRepository()}, args: args{dn: "test"}, wantErr: false},
 		{name: "create another domain", fields: fields{dr: repository.NewDomainRepository()}, args: args{dn: "anothertest"}, wantErr: false},
+		{name: "create wierd domain", fields: fields{dr: repository.NewDomainRepository()}, args: args{dn: "$%&YHDF%#GFJ%"}, wantErr: false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
