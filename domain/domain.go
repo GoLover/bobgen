@@ -29,10 +29,13 @@ type repository struct {
 	name string
 }
 
-type GenericUseCases interface {
-	Initiate() error
+type DomainUseCase interface {
 	CreateDomain(name string) error
-	DeleteDomain(name string) error
+	AddDURToDomain(dn, un string) error
+	AddDeliveryToDomain(dn, un string) error
+	AddRepositoryToDomain(dn, un string) error
+	AddUsecaseToDomain(dn, un string) error
+	//DeleteDomain(name string) error
 }
 type GenericRepository interface {
 	CreateFile(name, pathFromBase string) error

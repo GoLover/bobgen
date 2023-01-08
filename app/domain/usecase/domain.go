@@ -11,8 +11,8 @@ type DomainUsecase struct {
 	dr domain.GenericRepository
 }
 
-func NewDomainUsecase() DomainUsecase {
-	return DomainUsecase{}
+func NewDomainUsecase(dr domain.GenericRepository) DomainUsecase {
+	return DomainUsecase{dr: dr}
 }
 
 func (du DomainUsecase) CreateDomain(dn string) error {
