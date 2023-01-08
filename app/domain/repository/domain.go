@@ -48,7 +48,7 @@ func (DomainRepository) DeleteFile(pfb string) error {
 	pfb = "./" + pfb
 	err = os.RemoveAll(pfb)
 	if err != nil {
-		fmt.Errorf("%v, %w", domain.ErrRemovingFile, err)
+		return fmt.Errorf("%v, %w", domain.ErrRemovingFile, err)
 	}
 	return err
 }
