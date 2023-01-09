@@ -32,12 +32,45 @@ func (DomainRepository) CreateFile(name, pfb string) error {
 	if isFileExist == nil {
 		return domain.ErrFileAlreadyExist
 	}
-
 	_, err = os.Create(pfb + name)
 	if err != nil {
 		return fmt.Errorf("%v, %w", domain.ErrCreatingFile, err)
 	}
 	return err
+}
+
+func (DomainRepository) ReadFile(name, pfb string) ([]byte, error) {
+	err := pathFromBaseNumberOfSlashesValidator(pfb)
+	if err != nil {
+		return nil, err
+	}
+
+	pfb = "./" + pfb
+	fileContent, err := os.ReadFile(pfb + name)
+	if err != nil {
+		return nil, fmt.Errorf("%v, %w", domain.ErrOpeningFile, err)
+	}
+	return fileContent, err
+}
+
+func (DomainRepository) WriteFile(name, pfb string, content []byte) error {
+	err := pathFromBaseNumberOfSlashesValidator(pfb)
+	if err != nil {
+		return err
+	}
+
+	pfb = "./" + pfb
+	fileContent, err := os.ReadFile(pfb + name)
+	if err != nil {
+		return fmt.Errorf("%v, %w", domain.ErrOpeningFile, err)
+	}
+	fileContent = append(fileContent, content...)
+	err = os.WriteFile(pfb+name, fileContent, os.ModePerm)
+	if err != nil {
+		return fmt.Errorf("%v, %w", domain.ErrWritingFile, err)
+	}
+	return err
+
 }
 
 func (DomainRepository) DeleteFile(pfb string) error {
