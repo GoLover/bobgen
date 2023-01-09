@@ -43,11 +43,11 @@ func TestNewDomainUsecase(t *testing.T) {
 		name string
 		want DomainUsecase
 	}{
-		// TODO: Add test cases.
+		{name: "add bulik domain", want: NewDomainUsecase(repository.NewDomainRepository())},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := NewDomainUsecase(); !reflect.DeepEqual(got, tt.want) {
+			if got := NewDomainUsecase(repository.NewDomainRepository()); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("NewDomainUsecase() = %v, want %v", got, tt.want)
 			}
 		})
@@ -68,7 +68,8 @@ func TestDomainUsecase_AddDURToDomain(t *testing.T) {
 		args    args
 		wantErr bool
 	}{
-		// TODO: Add test cases.
+		{name: "add bulik domain to exist domain", fields: fields{dr: repository.NewDomainRepository()}, args: args{dn: "test", un: "domainbydur"}, wantErr: false},
+		{name: "add bulik domain to not exist domain", fields: fields{dr: repository.NewDomainRepository()}, args: args{dn: "testor", un: "domainbydur"}, wantErr: true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
