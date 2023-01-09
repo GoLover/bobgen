@@ -39,5 +39,7 @@ type DomainUseCase interface {
 }
 type GenericRepository interface {
 	CreateFile(name, pathFromBase string) error
+	WriteFile(name, pathFromBase string, content []byte) error
+	ReadFile(name, pathFromBase string) ([]byte, error)
 	DeleteFile(pathFromBase string) error
 }
